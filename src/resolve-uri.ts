@@ -1,15 +1,15 @@
 import { labelReplace } from "@x-drive/utils";
-
-const internalServers = getSysConfig("internalServers");
-const Apis = getSysConfig("internalApis");
-
 const ApiMap = new Map<string, string>();
 
-Object.keys(Apis).forEach((key: string) => {
-    let url = Apis[key];
-    url = labelReplace(url, internalServers, true);
-    ApiMap.set(key, url);
-});
+/**添加并处理新的 api */
+function addApiMap(apis: Record<string, string>, host: Record<string, string> = {}) {
+    Object.keys(apis).forEach((key: string) => {
+        let url = apis[key];
+        url = labelReplace(url, host, true);
+        ApiMap.set(key, url);
+    });
+}
+export { addApiMap }
 
 /**
  * 解析请求别名

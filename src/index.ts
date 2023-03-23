@@ -1,8 +1,8 @@
 import { isObject, isUndefined, labelReplace, addQuery, copy, isString, extend, isNumber, sleep } from "@x-drive/utils";
 import type { RequestInit, Response } from "node-fetch";
 import { getFetch } from "@x-drive/node-fetch-warper";
+import resolve, { addApiMap } from "./resolve-uri";
 import { isExecutable } from "@x-drive/utils";
-import resolve from "./resolve-uri";
 import { inspect } from "util";
 
 var reqLog = console;
@@ -33,10 +33,13 @@ interface IFetchConfig extends Partial<Omit<RequestInit, "body" | "method">> {
 
 export type { IFetchConfig }
 
+/**设置模块 logger */
 function setLogger(logger: any) {
     reqLog = logger;
 }
 export { setLogger }
+
+export { addApiMap, resolve }
 
 /**给指定对象增加一个随机字符串 */
 function setRandomStr(query: any) {
@@ -137,7 +140,6 @@ async function httpFetch<T = unknown>(
     , retry?: number
     , needProcessConfig: boolean = true
 ): Promise<T> {
-
     if (needProcessConfig) {
         config = extend(
             copy(DEF_CONFIG)
