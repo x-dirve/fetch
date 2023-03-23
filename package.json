@@ -7,7 +7,7 @@
         "url": "git+https://github.com/x-drive/fetch.git"
     },
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/x-drive/fetch/issues"
     },
