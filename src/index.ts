@@ -29,6 +29,9 @@ interface IFetchConfig extends Partial<Omit<RequestInit, "body" | "method">> {
 
     /**数据返回时的钩子 */
     onResponse?: (res?: Response) => Promise<unknown>;
+
+    /**是否 stringify Post 请求数据，默认 true*/
+    stringify?: boolean;
 }
 
 export type { IFetchConfig }
@@ -120,6 +123,7 @@ function getHeaders(headers?: Record<string, any>, uri?: string) {
 const DEF_CONFIG: IFetchConfig = {
     "type": "json"
     , "sameOrigin": false
+    , "stringify": true
 }
 
 /**
@@ -160,7 +164,13 @@ async function httpFetch<T = unknown>(
                 options[key] = config[key];
             }
         });
+
         options.headers = getHeaders(config.headers, config.sameOrigin ? uri : null);
+
+        if (config.type === "json") {
+            const ct = options.headers["Content-Type"];
+            options.headers["Content-Type"] = ct ? ct.toLowerCase() : "application/json";
+        }
 
         const url = preProcessor(
             resolve(uri)
@@ -169,6 +179,9 @@ async function httpFetch<T = unknown>(
         );
 
         if (data) {
+            if (config.stringify !== false && isObject(data)) {
+                data = JSON.stringify(data);
+            }
             options.body = data;
         }
         const fetch = await getFetch();

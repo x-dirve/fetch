@@ -1,6 +1,6 @@
 {
     "name": "@x-drive/fetch",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "NodeJs 服务端 Http 请求模块",
     "repository": {
         "type": "git",
