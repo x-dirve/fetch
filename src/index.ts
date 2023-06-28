@@ -167,11 +167,6 @@ async function httpFetch<T = unknown>(
 
         options.headers = getHeaders(config.headers, config.sameOrigin ? uri : null);
 
-        if (config.type === "json") {
-            const ct = options.headers["Content-Type"];
-            options.headers["Content-Type"] = ct ? ct.toLowerCase() : "application/json";
-        }
-
         const url = preProcessor(
             resolve(uri)
             , query
@@ -179,8 +174,12 @@ async function httpFetch<T = unknown>(
         );
 
         if (data) {
-            if (config.stringify !== false && isObject(data)) {
-                data = JSON.stringify(data);
+            if (isObject(data)) {
+                const ct = options.headers["Content-Type"];
+                options.headers["Content-Type"] = ct ? ct.toLowerCase() : "application/json";
+                if (config.stringify !== false) {
+                    data = JSON.stringify(data);
+                }
             }
             options.body = data;
         }
