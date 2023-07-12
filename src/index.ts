@@ -32,6 +32,13 @@ interface IFetchConfig extends Partial<Omit<RequestInit, "body" | "method">> {
 
     /**是否 stringify Post 请求数据，默认 true*/
     stringify?: boolean;
+
+    /**
+     * 是否不抛出异常, 默认 false
+     * - 当有 retry 时会优先 retry, 都失败后才会抛异常
+     * - 1.1.0 及以前版本不抛异常
+     */
+    silence?: boolean;
 }
 
 export type { IFetchConfig }
@@ -120,11 +127,23 @@ function getHeaders(headers?: Record<string, any>, uri?: string) {
     return headers
 }
 
+/**全局默认配置 */
 const DEF_CONFIG: IFetchConfig = {
     "type": "json"
     , "sameOrigin": false
     , "stringify": true
+    , "silence": true
 }
+
+/**设置默认全局配置 */
+function setDefConfig(config: IFetchConfig) {
+    if (isObject(config)) {
+        Object.keys(config).forEach(key => {
+            DEF_CONFIG[key] = config[key];
+        });
+    }
+}
+export { setDefConfig }
 
 /**
  * 获取数据
@@ -194,8 +213,8 @@ async function httpFetch<T = unknown>(
         }
         return null;
     } catch (e) {
-        reqLog.error(inspect(e));
         if (retry && retry > 0) {
+            reqLog.error(inspect(e));
             if (isNumber(config.retryDelay) && config.retryDelay > 0) {
                 await sleep(config.retryDelay, reqLog);
             }
@@ -210,7 +229,12 @@ async function httpFetch<T = unknown>(
                 , false
             );
         }
-        return null;
+        if (config.silence) {
+            reqLog.error(inspect(e));
+            return null;
+        } else {
+            throw e;
+        }
     }
 }
 export { httpFetch as fetch }
