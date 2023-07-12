@@ -1,3 +1,10 @@
+## v1.2.0
+
+### Feat
+- feat: 现在请求发生异常时将会抛出异常错误 [1d212a9](https://github.com/x-drive/fetch/commit/1d212a91fe389928104f10302a356b5c1506e8ee)
+- feat: 支持自动设置请求数据类型 [e2bf7b3](https://github.com/x-drive/fetch/commit/e2bf7b3ed36c700b32a20f986266cc0e38ff1731)
+- feat: post 请求支持自动 stringify 数据 [e3758e8](https://github.com/x-drive/fetch/commit/e3758e86162ab1c0e1e7e8df4b5afa306085f15c)
+
 ## v1.0.0
 
 ### Feat

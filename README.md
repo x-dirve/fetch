@@ -48,6 +48,11 @@
     /**设置默认 Headers */
     function setDefHeaders(headers: Record<string, any>): void;
     ```
+- `setDefConfig` 设置默认全局配置
+    ```ts
+    /**设置默认全局配置 */
+    function setDefConfig(config: IFetchConfig): void;
+    ```
 - `setRandomStr` 给指定对象增加一个随机字符串
     ```ts
     /**给指定对象增加一个随机字符串 */
@@ -71,3 +76,39 @@
     /**设置模块 logger */
     function setLogger(logger: any): void;
     ```
+## 配置项
+```ts
+/**支持的返回数据类型 */
+type IFetchType = "text" | "json" | "blob" | "buffer" | "arrayBuffer";
+
+/**请求配置 */
+interface IFetchConfig extends Partial<Omit<RequestInit, "body" | "method">> {
+    /**数据返回类型 */
+    type?: IFetchType;
+
+    /**是否强制同源 */
+    sameOrigin?: boolean;
+
+    /**请求自动重试次数 */
+    retry?: number;
+
+    /**自动重试间隔时间 */
+    retryDelay?: number;
+
+    /**是否自动追加随机数retry，默认 false */
+    random?: boolean;
+
+    /**数据返回时的钩子 */
+    onResponse?: (res?: Response) => Promise<unknown>;
+
+    /**是否 stringify Post 请求数据，默认 true*/
+    stringify?: boolean;
+
+    /**
+     * 是否不抛出异常, 默认 false
+     * - 当有 retry 时会优先 retry, 都失败后才会抛异常
+     * - 1.1.0 及以前版本不抛异常
+     */
+    silence?: boolean;
+}
+```
