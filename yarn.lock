@@ -268,11 +268,6 @@
   resolved "https://registry.yarnpkg.com/@x-drive/node-fetch-warper/-/node-fetch-warper-1.0.1.tgz#3a9e48393bcdc9f35fcb11823ec11b2a34939197"
   integrity sha512-N9Q+CfxOzufijZbwNwcd1YcKtgOlY2fgUWjRa55wSLap5w80RhcaP1M5tvMVOLA2bpF1TdGK5pbN83Ea12VadQ==
 
-"@x-drive/utils@1.1.24":
-  version "1.1.24"
-  resolved "https://registry.yarnpkg.com/@x-drive/utils/-/utils-1.1.24.tgz#ff53a2e76d8527543ef427806b244a35f3ac8563"
-  integrity sha512-1VTSUlyeMHUhd6VehIS0PDyUrb4yzLoeY2/SavoAGF1soQrbFtmkhef+MZHNo0/pcIAljvWNY2LXVlhuNonvgg==
-
 "@x-drive/utils@1.1.32":
   version "1.1.32"
   resolved "https://registry.yarnpkg.com/@x-drive/utils/-/utils-1.1.32.tgz#79c786900386817e637026435c8f50745a6a36dd"

@@ -21,6 +21,7 @@
         "isolatedModules": true,
         "declaration": true,
         "declarationDir": "./dist",
+        "skipLibCheck": true,
         "baseUrl": ".",
         "rootDir": "./src",
         "types": [

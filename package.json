@@ -1,6 +1,6 @@
 {
     "name": "@x-drive/fetch",
-    "version": "1.2.0",
+    "version": "1.3.1",
     "description": "NodeJs 服务端 Http 请求模块",
     "repository": {
         "type": "git",
@@ -22,7 +22,7 @@
     "types": "./dist/index.d.ts",
     "dependencies": {
         "node-fetch": "3.0.0",
-        "@x-drive/utils": "1.1.24",
+        "@x-drive/utils": "1.1.32",
         "@x-drive/node-fetch-warper": "1.0.1"
     },
     "devDependencies": {
@@ -31,7 +31,7 @@
         "@swc/cli": "0.1.57",
         "typescript": "4.3.4",
         "@swc/core": "1.2.171",
-        "@types/koa": "2.13.5",
+        "@types/koa": "3.0.2",
         "@x-9lab/xlab": "^2.0.0",
         "@types/node": "16.11.40",
         "@x-drive/changelog": "1.1.6"

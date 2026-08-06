@@ -1,4 +1,4 @@
-import { isObject, isUndefined, labelReplace, addQuery, copy, isString, extend, isNumber, sleep } from "@x-drive/utils";
+import { isObject, isUndefined, labelReplace, addQuery, copy, isString, extend, isNumber, sleep, isBoolean } from "@x-drive/utils";
 import type { RequestInit, Response } from "node-fetch";
 import { getFetch } from "@x-drive/node-fetch-warper";
 import resolve, { addApiMap } from "./resolve-uri";
@@ -39,9 +39,19 @@ interface IFetchConfig extends Partial<Omit<RequestInit, "body" | "method">> {
      * - 1.1.0 及以前版本不抛异常
      */
     silence?: boolean;
+
+    /**是否使用标准 fetch */
+    useWHATWG?: boolean;
 }
 
 export type { IFetchConfig }
+
+async function getFetchClient(useWHATWG: boolean) {
+    if (useWHATWG) {
+        return Promise.resolve(fetch);
+    }
+    return await getFetch()
+}
 
 /**设置模块 logger */
 function setLogger(logger: any) {
@@ -202,10 +212,16 @@ async function httpFetch<T = unknown>(
             }
             options.body = data;
         }
-        const fetch = await getFetch();
+        const fetch = await getFetchClient(
+            isBoolean(config.useWHATWG)
+                ? config.useWHATWG
+                : !isUndefined((globalThis || this).window)
+        );
+        // @ts-ignore
         const resp = await fetch(url, options);
         if (resp) {
             if (isExecutable(config.onResponse)) {
+                // @ts-ignore
                 await config.onResponse(resp);
             }
             const data = await resp[config.type]();
