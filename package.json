@@ -32,7 +32,7 @@
         "typescript": "4.3.4",
         "@swc/core": "1.2.171",
         "@types/koa": "2.13.5",
-        "@x-9lab/xlab": "^1.4.1",
+        "@x-9lab/xlab": "^2.0.0",
         "@types/node": "16.11.40",
         "@x-drive/changelog": "1.1.6"
     },
