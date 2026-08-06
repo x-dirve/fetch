@@ -1,3 +1,14 @@
+## v1.3.1
+
+### Feat
+- feat: 支持直接使用标准的 fetch [94d8526](https://github.com/x-drive/fetch/commit/94d8526304ebf6ecf7a46637581eebb2bc230d02)
+
+### Chore
+- chore(deps): 升级 @x-9lab/xlab 至 ^2.0.0 [e791a12](https://github.com/x-drive/fetch/commit/e791a12e3727129ba444f886858758aaf1f30aa0)
+
+### Build
+- build: 修改 npm 镜像地址 [f69759b](https://github.com/x-drive/fetch/commit/f69759bbc9a4e8b3d8cfee1129312dde6abd0028)
+
 ## v1.2.0
 
 ### Feat
